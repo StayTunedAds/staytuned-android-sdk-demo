@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:paddingBottom="@dimen/st_size_16">
+
+    <ImageView
+        android:id="@+id/audio_book_detail_imageview"
+        android:layout_width="@dimen/st_size_200"
+        android:layout_height="@dimen/st_size_200"
+        android:layout_marginTop="@dimen/st_size_32"
+        android:background="@color/colorPrimaryDark"
+        android:scaleType="centerCrop"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/audio_book_detail_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/st_size_32"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingStart="@dimen/st_size_32"
+        android:paddingEnd="@dimen/st_size_32"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textSize="@dimen/st_text_24"
+        app:layout_constraintTop_toBottomOf="@+id/audio_book_detail_imageview"
+        tools:text="La escobula de la some more text" />
+
+    <TextView
+        android:id="@+id/audio_book_detail_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="@dimen/st_size_4"
+        android:paddingStart="@dimen/st_size_32"
+        android:paddingEnd="@dimen/st_size_32"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/audio_book_detail_title"
+        tools:text="Podium" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/audio_book_detail_detail_fragment_button_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/st_size_16"
+        android:layout_marginEnd="@dimen/st_size_16"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/audio_book_detail_author">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/audio_book_header_like"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/audio_book_header_like_img"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_marginTop="@dimen/st_size_12"
+                        android:padding="@dimen/st_size_12"
+                        app:srcCompat="@drawable/ic_heart" />
+
+                    <TextView
+                        android:id="@+id/audio_book_header_like_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/st_size_12"
+                        android:gravity="center"
+                        android:text="Favoris"
+                        android:textColor="@color/colorPrimary" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:id="@+id/audio_book_detail_detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/audio_book_detail_detail_fragment_button_wrapper">
+
+        <TextView
+            android:id="@+id/audio_book_detail_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/st_size_16"
+            android:layout_marginEnd="@dimen/st_size_16"
+            android:autoLink="web"
+            android:maxLines="3"
+            tools:text="Un audio_book_detail dedicado a la Historia, las leyendas y las tradiciones en el que e abordan algunos de los temas más fascinantes de la Historia. ¿Cómo vivían y en qué creían los antiguos egipcios? ¿Cuáles son las españolas más intrépidas y pioneras? ¿Cuáles son los secretos de los alquimistas? Éstas y otras preguntas serán resueltas en cada episodio. Disfruten." />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/audio_book_detail_separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/st_size_24"
+        android:background="@color/stGrayLight"
+        app:layout_constraintTop_toBottomOf="@id/audio_book_detail_detail_layout" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/st_size_16"
+        android:layout_marginTop="@dimen/st_size_24"
+
+        android:text="Chapitres"
+        android:textSize="@dimen/st_text_15"
+        app:layout_constraintTop_toBottomOf="@id/audio_book_detail_separator" />
+</androidx.constraintlayout.widget.ConstraintLayout>

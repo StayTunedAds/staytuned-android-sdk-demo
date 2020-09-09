@@ -1,0 +1,79 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:paddingBottom="@dimen/st_size_16">
+
+        <ImageView
+            android:id="@+id/track_detail_imageview"
+            android:layout_width="@dimen/st_size_200"
+            android:layout_height="@dimen/st_size_200"
+            android:layout_marginTop="@dimen/st_size_32"
+            android:background="@color/colorPrimaryDark"
+            android:scaleType="centerCrop"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/track_detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/st_size_32"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:paddingStart="@dimen/st_size_32"
+            android:paddingEnd="@dimen/st_size_32"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textSize="@dimen/st_text_24"
+            app:layout_constraintTop_toBottomOf="@+id/track_detail_imageview"
+            tools:text="La escobula de la some more text" />
+
+        <TextView
+            android:id="@+id/track_detail_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="@dimen/st_size_4"
+            android:paddingStart="@dimen/st_size_32"
+            android:paddingEnd="@dimen/st_size_32"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/track_detail_title"
+            tools:text="Podium" />
+
+        <RelativeLayout
+            android:id="@+id/track_detail_detail_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/track_detail_author">
+
+            <TextView
+                android:id="@+id/track_detail_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/st_size_16"
+                android:layout_marginEnd="@dimen/st_size_16"
+                android:autoLink="web"
+                android:maxLines="3"
+                tools:text="Un track_detail dedicado a la Historia, las leyendas y las tradiciones en el que e abordan algunos de los temas más fascinantes de la Historia. ¿Cómo vivían y en qué creían los antiguos egipcios? ¿Cuáles son las españolas más intrépidas y pioneras? ¿Cuáles son los secretos de los alquimistas? Éstas y otras preguntas serán resueltas en cada episodio. Disfruten." />
+
+        </RelativeLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

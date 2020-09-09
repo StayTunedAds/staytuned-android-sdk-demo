@@ -1,0 +1,4 @@
+[submodule "staytuned-sdk-openapi-generated"]
+	path = staytuned-sdk-openapi-generated
+	url = git@github.com:StayTunedAds/staytuned-sdk-openapi-generated.git
+	branch = android

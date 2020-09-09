@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1030071334233",
+    "firebase_url": "https://fir-sdk-staytuned.firebaseio.com",
+    "project_id": "fir-sdk-staytuned",
+    "storage_bucket": "fir-sdk-staytuned.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1030071334233:android:cf975942ca136406650848",
+        "android_client_info": {
+          "package_name": "com.staytuned.demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1030071334233-ni399cp1lqrs2l2nji7qoc0q5m2lll48.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEI-1_mKJn89MyHTvusxHfreIfXgqgsBw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1030071334233-ni399cp1lqrs2l2nji7qoc0q5m2lll48.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
