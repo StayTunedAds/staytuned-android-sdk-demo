@@ -15,7 +15,7 @@ This repository is a demo application for the Staytuned Android SDK
 
 Run the project in Android Studio
 
-You also can change the setup with your own credentiels in `App.kt`
+You also can change the setup with your own credentials in `App.kt`
 
 ## Documentation
 
