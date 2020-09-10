@@ -1,6 +1,7 @@
 package com.staytuned.demo
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -25,38 +26,44 @@ class ContentActivity : AppCompatActivity() {
     private val vModel: MainViewModel by viewModels()
     private var contentLight: STContentLight? = null
     var content: STContent? = null
-    set(value) {
-        adapter.content = value
-        field = value
-        updateAdapter()
-    }
+        set(value) {
+            adapter.content = value
+            field = value
+            updateAdapter()
+        }
 
     var contentList: STContentList? = null
     var trackList: STTrackList? = null
     var adapter = AudioBookDetailAdapter({ content, liked ->
-         contentList?.addItems(listOf(STContentListItem().apply { key = content.key; }), object: STHttpCallback<List<STContentListItem>> {
-            override fun onSuccess(data: List<STContentListItem>) {
-                contentList?.listItems = data.toMutableList()
-                updateAdapter()
-            }
+        contentList?.addItems(
+            listOf(STContentListItem().apply { key = content.key; }),
+            object : STHttpCallback<List<STContentListItem>> {
+                override fun onSuccess(data: List<STContentListItem>) {
+                    contentList?.listItems = data.toMutableList()
+                    updateAdapter()
+                }
 
-            override fun onError(t: Throwable) {
-                t.printStackTrace()
-                Toast.makeText(applicationContext, "Erreur lors du like", Toast.LENGTH_LONG).show()
-            }
-        })
+                override fun onError(t: Throwable) {
+                    t.printStackTrace()
+                    Toast.makeText(applicationContext, "Erreur lors du like", Toast.LENGTH_LONG)
+                        .show()
+                }
+            })
     }, { track, liked ->
-        trackList?.addItems(listOf(STTrackListItem().apply { key = track.key; }), object: STHttpCallback<List<STTrackListItem>> {
-            override fun onSuccess(data: List<STTrackListItem>) {
-                trackList?.listItems = data.toMutableList()
-                updateAdapter()
-            }
+        trackList?.addItems(
+            listOf(STTrackListItem().apply { key = track.key; }),
+            object : STHttpCallback<List<STTrackListItem>> {
+                override fun onSuccess(data: List<STTrackListItem>) {
+                    trackList?.listItems = data.toMutableList()
+                    updateAdapter()
+                }
 
-            override fun onError(t: Throwable) {
-                t.printStackTrace()
-                Toast.makeText(applicationContext, "Erreur lors du like", Toast.LENGTH_LONG).show()
-            }
-        })
+                override fun onError(t: Throwable) {
+                    t.printStackTrace()
+                    Toast.makeText(applicationContext, "Erreur lors du like", Toast.LENGTH_LONG)
+                        .show()
+                }
+            })
     })
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,20 +85,29 @@ class ContentActivity : AppCompatActivity() {
         }
 
         if (contentLight != null) {
-            STContents.getInstance()?.getContent(contentLight!!.key, object : STHttpCallback<STContent> {
-                override fun onSuccess(data: STContent) {
-                    content = data
-                    sdk_staytuned_audio_book_detail_recyclerview.layoutManager = LinearLayoutManager(this@ContentActivity)
+            loader.visibility = View.VISIBLE
+            sdk_staytuned_audio_book_detail_recyclerview.visibility = View.GONE
+            STContents.getInstance()
+                ?.getContent(contentLight!!.key, object : STHttpCallback<STContent> {
+                    override fun onSuccess(data: STContent) {
 
-                    STPlayer.getInstance()?.currentTrack?.observe(this@ContentActivity, Observer {
-                        sdk_staytuned_audio_book_detail_recyclerview.adapter?.notifyDataSetChanged()
-                    })
-                }
+                        loader.visibility = View.GONE
+                        sdk_staytuned_audio_book_detail_recyclerview.visibility = View.VISIBLE
+                        content = data
+                        sdk_staytuned_audio_book_detail_recyclerview.layoutManager =
+                            LinearLayoutManager(this@ContentActivity)
 
-                override fun onError(t: Throwable) {
-                    t.printStackTrace()
-                }
-            })
+                        STPlayer.getInstance()?.currentTrack?.observe(
+                            this@ContentActivity,
+                            Observer {
+                                sdk_staytuned_audio_book_detail_recyclerview.adapter?.notifyDataSetChanged()
+                            })
+                    }
+
+                    override fun onError(t: Throwable) {
+                        t.printStackTrace()
+                    }
+                })
         } else {
             finish()
         }

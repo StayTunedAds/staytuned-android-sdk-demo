@@ -10,4 +10,7 @@
     <string name="my_contents">Mes contenus</string>
     <string name="my_tracks">Mes épisodes</string>
     <string name="no_content">Aucun Podcast dans vos favoris</string>
+    <string name="track_start">Commencer la lecture</string>
+    <string name="track_pause">Mettre en pause</string>
+    <string name="track_resume">Relancer la lecture</string>
 </resources>

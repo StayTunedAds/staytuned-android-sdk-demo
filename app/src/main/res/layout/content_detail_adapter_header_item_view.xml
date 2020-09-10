@@ -33,6 +33,7 @@
         android:singleLine="true"
         android:textAlignment="center"
         android:textSize="@dimen/st_text_24"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/audio_book_detail_imageview"
         tools:text="La escobula de la some more text" />
 
@@ -69,10 +70,10 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:id="@+id/audio_book_header_like"
@@ -140,8 +141,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/st_size_16"
         android:layout_marginTop="@dimen/st_size_24"
-
         android:text="Chapitres"
+
         android:textSize="@dimen/st_text_15"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/audio_book_detail_separator" />
 </androidx.constraintlayout.widget.ConstraintLayout>

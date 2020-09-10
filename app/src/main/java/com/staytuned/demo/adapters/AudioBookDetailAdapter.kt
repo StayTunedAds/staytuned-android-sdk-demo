@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.staytuned.demo.R
 import com.staytuned.demo.TrackActivity
+import com.staytuned.demo.utils.TimeUtil
 import com.staytuned.sdk.features.STPlayer
 import com.staytuned.sdk.models.STContent
 import com.staytuned.sdk.models.STTrack
@@ -18,6 +19,7 @@ import com.staytuned.sdk.models.lists.STContentList
 import com.staytuned.sdk.models.lists.STTrackList
 import kotlinx.android.synthetic.main.content_detail_adapter_header_item_view.view.*
 import kotlinx.android.synthetic.main.content_detail_adapter_list_item_view.view.*
+import java.time.format.DateTimeFormatter
 
 class AudioBookDetailAdapter(
     private var onContentLiked: (content: STContent, currentLike: Boolean) -> Unit,
@@ -119,7 +121,7 @@ class AudioBookDetailAdapter(
             val track = getList()[position - 1]
 
             holder.audioBookTitle.text = track.title
-            holder.audioBookTime.text = track.audioDuration.toString()
+            holder.audioBookTime.text = TimeUtil.milliSecondsToTimerVerbose((track.audioDuration?.toLong() ?: 0L) * 1000)
 
             holder.audioBookLayout.setOnClickListener {
                 val intent = Intent(it.context, TrackActivity::class.java)
