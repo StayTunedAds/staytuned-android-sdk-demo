@@ -55,18 +55,17 @@ class HomeFragment : Fragment() {
 
 
     private fun getSection(section: STSection) {
-        STSections.getInstance()?.getSection(section.id, object: STHttpCallback<STSection> {
-            override fun onSuccess(data: STSection) {
-                viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
+            STSections.getInstance()?.getSection(section.id, object : STHttpCallback<STSection> {
+                override fun onSuccess(data: STSection) {
                     (mainRecycler.adapter as SectionAdapter).updateSection(data)
-
                 }
-            }
 
-            override fun onError(t: Throwable) {
-                t.printStackTrace()
-            }
-        })
+                override fun onError(t: Throwable) {
+                    t.printStackTrace()
+                }
+            })
+        }
     }
- 
+
 }

@@ -1,8 +1,10 @@
 package com.staytuned.demo.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.staytuned.sdk.features.STLists
+import com.staytuned.sdk.features.STOffline
 import com.staytuned.sdk.features.STSections
 import com.staytuned.sdk.http.STHttpCallback
 import com.staytuned.sdk.models.STSection
@@ -10,12 +12,14 @@ import com.staytuned.sdk.models.lists.STContentList
 import com.staytuned.sdk.models.lists.STTrackList
 import com.staytuned.sdk.models.lists.STGenericList
 import com.staytuned.sdk.models.lists.STListType
+import com.staytuned.sdk.models.offline.STContentLightOfflineItem
 
 class MainViewModel: ViewModel() {
 
     val sections: MutableLiveData<List<STSection>> = MutableLiveData()
     val myContentsList: MutableLiveData<STContentList> = MutableLiveData()
     val myTracksList: MutableLiveData<STTrackList> = MutableLiveData()
+    val offlineList: LiveData<List<STContentLightOfflineItem>>? = STOffline.getInstance()?.contents
 
     fun getSections() {
         STSections.getInstance()?.getSections(object : STHttpCallback<List<STSection>> {

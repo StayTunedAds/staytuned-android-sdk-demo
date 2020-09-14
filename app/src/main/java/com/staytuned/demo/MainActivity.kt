@@ -1,24 +1,21 @@
 package com.staytuned.demo
 
+import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.observe
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.MemoryCategory
-import com.google.gson.Gson
 import com.staytuned.demo.viewmodels.MainViewModel
-import com.staytuned.sdk.features.STAuth
-import com.staytuned.sdk.features.STContents
-import com.staytuned.sdk.http.STHttpCallback
-import com.staytuned.sdk.models.STAuthResponse
-import com.staytuned.sdk.models.STContent
-import com.staytuned.sdk.models.STContentLight
+import com.staytuned.sdk.features.STOffline
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.reflect.Method
 
 class MainActivity : AppCompatActivity() {
     val vModel: MainViewModel by viewModels()
@@ -29,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         Glide.get(this).setMemoryCategory(MemoryCategory.LOW)
 
         vModel.getSections()
+        showDebugDBAddressLogToast(this)
 
         /*
         STAuth.getInstance()?.refresh(object : STHttpCallback<STAuthResponse> {
@@ -43,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "Failed to connect", Toast.LENGTH_SHORT).show()
             }
         }) */
- 
+
         val navController = findNavController(R.id.fragNavHost)
         bottomNavView.setupWithNavController(navController)
 
@@ -56,5 +54,21 @@ class MainActivity : AppCompatActivity() {
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
+    }
+
+    fun showDebugDBAddressLogToast(context: Context?) {
+        if (BuildConfig.DEBUG) {
+            try {
+                val debugDB = Class.forName("com.amitshekhar.DebugDB")
+                val getAddressLog: Method = debugDB.getMethod("getAddressLog")
+                val value: Any = getAddressLog.invoke(null)
+                Toast.makeText(
+                    context,
+                    value as String,
+                    Toast.LENGTH_LONG
+                ).show()
+            } catch (ignore: Exception) {
+            }
+        }
     }
 }

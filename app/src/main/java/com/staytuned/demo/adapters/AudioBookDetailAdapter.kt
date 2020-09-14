@@ -12,11 +12,15 @@ import com.bumptech.glide.Glide
 import com.staytuned.demo.R
 import com.staytuned.demo.TrackActivity
 import com.staytuned.demo.utils.TimeUtil
+import com.staytuned.sdk.features.STOffline
 import com.staytuned.sdk.features.STPlayer
+import com.staytuned.sdk.http.STHttpCallback
 import com.staytuned.sdk.models.STContent
 import com.staytuned.sdk.models.STTrack
 import com.staytuned.sdk.models.lists.STContentList
 import com.staytuned.sdk.models.lists.STTrackList
+import com.staytuned.sdk.models.offline.STOfflineState
+import com.staytuned.sdk.models.offline.STTrackOfflineItem
 import kotlinx.android.synthetic.main.content_detail_adapter_header_item_view.view.*
 import kotlinx.android.synthetic.main.content_detail_adapter_list_item_view.view.*
 import java.time.format.DateTimeFormatter
@@ -33,12 +37,22 @@ class AudioBookDetailAdapter(
             field = value
             notifyDataSetChanged()
         }
+    var offlineList: List<STTrackOfflineItem> = listOf()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
     var contentList: STContentList? = null
         set(value) {
             field = value
             notifyDataSetChanged()
         }
     var trackList: STTrackList? = null
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+    var isOffline: Boolean = false
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -63,6 +77,7 @@ class AudioBookDetailAdapter(
         val audioBookTitle: TextView = view.audio_book_title
         val audioBookTime: TextView = view.audio_book_time
         val audioBookIsPlaying: TextView = view.audio_book_is_playing
+        var audioBookDownload: AppCompatImageView = view.audio_book_download
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -120,8 +135,16 @@ class AudioBookDetailAdapter(
 
             val track = getList()[position - 1]
 
+            var isTrackDownloaded = this.isTrackDownloaded(track)
+            if (isOffline && !isTrackDownloaded) {
+                holder.itemView.alpha = .5f
+            } else {
+                holder.itemView.alpha = 1f
+            }
+
             holder.audioBookTitle.text = track.title
-            holder.audioBookTime.text = TimeUtil.milliSecondsToTimerVerbose((track.audioDuration?.toLong() ?: 0L) * 1000)
+            holder.audioBookTime.text =
+                TimeUtil.milliSecondsToTimerVerbose((track.audioDuration?.toLong() ?: 0L) * 1000)
 
             holder.audioBookLayout.setOnClickListener {
                 val intent = Intent(it.context, TrackActivity::class.java)
@@ -132,13 +155,27 @@ class AudioBookDetailAdapter(
 
             Glide.with(holder.audioBookImage).load(track.imgSrc).into(holder.audioBookImage)
 
-
             if (isTrackLiked(track)) {
                 holder.audioBookLike.setImageResource(R.drawable.ic_heart_full)
             } else {
                 holder.audioBookLike.setImageResource(R.drawable.ic_heart)
             }
 
+            if (isTrackDownloaded) {
+                holder.audioBookDownload.setImageResource(R.drawable.ic_delete)
+                holder.audioBookIsDownloaded.visibility = View.VISIBLE
+            } else {
+                holder.audioBookDownload.setImageResource(R.drawable.ic_download)
+                holder.audioBookIsDownloaded.visibility = View.GONE
+            }
+
+            if (isTrackDownloading(track)) {
+                holder.audioBookDownload.visibility = View.GONE
+                holder.audioBookLoader.visibility = View.VISIBLE
+            } else {
+                holder.audioBookDownload.visibility = View.VISIBLE
+                holder.audioBookLoader.visibility = View.GONE
+            }
 
             if (STPlayer.getInstance()?.currentTrack?.value?.key == track.key) {
                 holder.audioBookIsPlaying.visibility = View.VISIBLE
@@ -148,6 +185,23 @@ class AudioBookDetailAdapter(
 
             holder.audioBookLike.setOnClickListener { _ ->
                 onTrackLiked.invoke(track, isTrackLiked(track))
+            }
+
+            holder.audioBookDownload.setOnClickListener {
+                if (this.isTrackDownloaded(track)) {
+                    STOffline.getInstance()?.remove(it.context, track)
+                } else {
+                    STOffline.getInstance()
+                        ?.download(it.context, track, object : STHttpCallback<STTrack> {
+                            override fun onSuccess(data: STTrack) {
+                                println("Download Success")
+                            }
+
+                            override fun onError(t: Throwable) {
+                                t.printStackTrace()
+                            }
+                        })
+                }
             }
         }
     }
@@ -163,5 +217,13 @@ class AudioBookDetailAdapter(
 
     private fun isTrackLiked(track: STTrack): Boolean {
         return false // this.trackList?.listItems?.map { it.item?.key ?: "" }?.any { it == track.key } == true
+    }
+
+    private fun isTrackDownloaded(track: STTrack): Boolean {
+        return offlineList.any { it.audioItem.key == track.key && it.state == STOfflineState.DOWNLOADED }
+    }
+
+    private fun isTrackDownloading(track: STTrack): Boolean {
+        return offlineList.any { it.audioItem.key == track.key && it.state != STOfflineState.DOWNLOADED }
     }
 }

@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.staytuned.demo.adapters.AudioBookDetailAdapter
 import com.staytuned.demo.viewmodels.MainViewModel
 import com.staytuned.sdk.features.STContents
+import com.staytuned.sdk.features.STOffline
 import com.staytuned.sdk.features.STPlayer
+import com.staytuned.sdk.helpers.NetworkHelper
 import com.staytuned.sdk.http.STHttpCallback
 import com.staytuned.sdk.models.STContent
 import com.staytuned.sdk.models.STContentLight
@@ -82,6 +84,13 @@ class ContentActivity : AppCompatActivity() {
         vModel.myTracksList.observe(this) {
             trackList = it
             adapter.trackList = it
+        }
+        STOffline.getInstance()?.getTracksObservableByContentKey(contentLight?.key ?: "")
+            ?.observe(this) {
+                adapter.offlineList = it
+            }
+        NetworkHelper.connectionLiveData.observe(this) {
+            adapter.isOffline = !it.isConnected
         }
 
         if (contentLight != null) {
