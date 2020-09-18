@@ -19,6 +19,7 @@ import com.staytuned.demo.R
 import com.staytuned.sdk.features.STPlayer
 import com.staytuned.sdk.features.STSections
 import com.staytuned.sdk.http.STHttpCallback
+import com.staytuned.sdk.models.STPlaylist
 import com.staytuned.sdk.models.STTrack
 import kotlinx.android.synthetic.main.content_light_item.view.*
 
@@ -47,7 +48,7 @@ class TracksAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentCategory = trackList[position]
-        bindListItem(holder as ViewHolder, currentCategory)
+        bindListItem(holder as ViewHolder, currentCategory, position)
     }
 
     fun setContents(tracks: List<STTrack>) {
@@ -76,10 +77,7 @@ class TracksAdapter(
         trackList = cloneList
     }
 
-    private fun bindListItem(
-        holder: ViewHolder,
-        track: STTrack
-    ) {
+    private fun bindListItem(holder: ViewHolder, track: STTrack, position: Int) {
         Glide.with(holder.image).clear(holder.image)
         Glide.with(holder.image).applyDefaultRequestOptions(RequestOptions().apply {
             format(DecodeFormat.PREFER_RGB_565)
@@ -89,7 +87,7 @@ class TracksAdapter(
         holder.author.text = track.subtitle
 
         holder.wrapper.setOnClickListener {
-            STPlayer.getInstance()?.play(track)
+            STPlayer.getInstance()?.play(STPlaylist(ArrayList(trackList)), position)
         }
     }
 

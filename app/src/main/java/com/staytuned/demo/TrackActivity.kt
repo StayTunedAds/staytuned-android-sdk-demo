@@ -12,6 +12,7 @@ import com.staytuned.sdk.features.STPlayer
 import com.staytuned.sdk.http.STHttpCallback
 import com.staytuned.sdk.models.STContent
 import com.staytuned.sdk.models.STPlayerState
+import com.staytuned.sdk.models.STPlaylist
 import com.staytuned.sdk.models.STTrack
 import kotlinx.android.synthetic.main.activity_track.*
 
@@ -77,8 +78,12 @@ class TrackActivity : AppCompatActivity() {
                     STPlayer.getInstance()?.resume()
                 }
             } else {
-                track?.let {
-                    STPlayer.getInstance()?.play(it)
+                content?.let { cont ->
+                    track?.let { trck ->
+                        STPlayer.getInstance()?.play(
+                            STPlaylist(ArrayList(cont.elementList ?: listOf())),
+                            cont.elementList?.indexOfFirst { it.key == trck.key } ?: 0)
+                    }
                 }
             }
         }
