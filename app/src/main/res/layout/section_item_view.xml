@@ -14,6 +14,8 @@
         android:clipToPadding="false"
         android:paddingStart="@dimen/st_size_16"
         android:paddingEnd="@dimen/st_size_16"
+        android:textColor="@color/stTextDefault"
+        android:fontFamily="@font/montserrat_bold"
         android:textSize="22sp"
         android:textStyle="bold"
         tools:text="Title" />

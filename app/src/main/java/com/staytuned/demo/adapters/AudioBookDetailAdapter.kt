@@ -192,7 +192,7 @@ class AudioBookDetailAdapter(
                     STOffline.getInstance()?.remove(it.context, track)
                 } else {
                     STOffline.getInstance()
-                        ?.download(it.context, track, object : STHttpCallback<STTrack> {
+                        ?.add(it.context, track, object : STHttpCallback<STTrack> {
                             override fun onSuccess(data: STTrack) {
                                 println("Download Success")
                             }

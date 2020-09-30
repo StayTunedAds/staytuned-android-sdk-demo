@@ -1,110 +1,34 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <ProgressBar
         android:id="@+id/loader"
         android:layout_width="32dp"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:indeterminate="true"
         android:indeterminateTint="@color/colorPrimary"
         android:visibility="gone"
+        android:layout_centerInParent="true"
         tools:visibility="visible" />
 
-    <ScrollView
+    <LinearLayout
         android:id="@+id/track_wrapper"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@android:color/white">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <FrameLayout
+            android:id="@+id/track_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:paddingBottom="@dimen/st_size_16">
+            android:layout_height="0dp"
+            android:layout_weight="1"  />
 
-            <ImageView
-                android:id="@+id/track_detail_imageview"
-                android:layout_width="@dimen/st_size_200"
-                android:layout_height="@dimen/st_size_200"
-                android:layout_marginTop="@dimen/st_size_32"
-                android:background="@color/colorPrimaryDark"
-                android:scaleType="centerCrop"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <com.staytuned.sdk.ui.STMinifiedPlayer
+            android:id="@+id/sdk_staytuned_mini_player"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/track_detail_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/st_size_32"
-                android:ellipsize="marquee"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:paddingStart="@dimen/st_size_32"
-                android:paddingEnd="@dimen/st_size_32"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:textAlignment="center"
-                android:textSize="@dimen/st_text_24"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/track_detail_imageview"
-                tools:text="La escobula de la some more text" />
-
-            <TextView
-                android:id="@+id/track_detail_author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:padding="@dimen/st_size_4"
-                android:paddingStart="@dimen/st_size_32"
-                android:paddingEnd="@dimen/st_size_32"
-                android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/track_detail_title"
-                tools:text="Podium" />
-
-            <Button
-                android:id="@+id/play_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/st_size_16"
-                android:background="@drawable/btn_primary"
-                android:stateListAnimator="@null"
-                android:text="@string/track_start"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/st_text_15"
-                app:layout_constraintTop_toBottomOf="@id/track_detail_author" />
-
-            <TextView
-                android:id="@+id/track_detail_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/st_size_16"
-                android:layout_marginTop="@dimen/st_size_16"
-                android:layout_marginEnd="@dimen/st_size_16"
-                android:autoLink="web"
-                android:maxLines="3"
-                app:layout_constraintTop_toBottomOf="@id/play_btn"
-                tools:text="Un track_detail dedicado a la Historia, las leyendas y las tradiciones en el que e abordan algunos de los temas más fascinantes de la Historia. ¿Cómo vivían y en qué creían los antiguos egipcios? ¿Cuáles son las españolas más intrépidas y pioneras? ¿Cuáles son los secretos de los alquimistas? Éstas y otras preguntas serán resueltas en cada episodio. Disfruten." />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-
-    <com.staytuned.sdk.ui.STMinifiedPlayer
-        android:id="@+id/sdk_staytuned_mini_player"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -38,6 +38,8 @@ class MainViewModel: ViewModel() {
             override fun onSuccess(data: List<STGenericList<*>>) {
                 val foundContentList = data.find { it.name == "MyContents" }
                 val foundTrackList = data.find { it.name == "MyTracks" }
+
+
                 if (foundContentList == null) {
                     createContentList()
                 } else {

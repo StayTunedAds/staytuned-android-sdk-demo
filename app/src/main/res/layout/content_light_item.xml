@@ -37,6 +37,8 @@
         android:singleLine="true"
         android:ellipsize="end"
         android:textSize="@dimen/st_text_15"
+        android:textColor="@color/stTextDefault"
+        android:fontFamily="@font/montserrat_bold"
         android:textStyle="bold"
         tools:text="Name of book podium" />
 
@@ -46,6 +48,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxWidth="150dp"
+        android:fontFamily="@font/montserrat_regular"
         android:singleLine="true"
         android:textSize="13sp"
         tools:text="Author of book" />

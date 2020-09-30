@@ -5,15 +5,17 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.observe
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.MemoryCategory
+import com.google.gson.Gson
 import com.staytuned.demo.viewmodels.MainViewModel
-import com.staytuned.sdk.features.STOffline
+import com.staytuned.sdk.features.STAuth
+import com.staytuned.sdk.http.STHttpCallback
+import com.staytuned.sdk.models.STAuthResponse
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.reflect.Method
 
@@ -28,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         vModel.getSections()
         showDebugDBAddressLogToast(this)
 
-        /*
         STAuth.getInstance()?.refresh(object : STHttpCallback<STAuthResponse> {
             override fun onSuccess(data: STAuthResponse) {
                 Toast.makeText(this@MainActivity, "Connected !", Toast.LENGTH_SHORT).show()
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                 t.printStackTrace()
                 Toast.makeText(this@MainActivity, "Failed to connect", Toast.LENGTH_SHORT).show()
             }
-        }) */
+        })
 
         val navController = findNavController(R.id.fragNavHost)
         bottomNavView.setupWithNavController(navController)
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
-    fun showDebugDBAddressLogToast(context: Context?) {
+    private fun showDebugDBAddressLogToast(context: Context?) {
         if (BuildConfig.DEBUG) {
             try {
                 val debugDB = Class.forName("com.amitshekhar.DebugDB")

@@ -1,11 +1,16 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="SdkTheme">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="fontFamilyBold">@font/montserrat_bold</item>
+        <item name="fontFamilySemiBold">@font/montserrat_semibold</item>
+        <item name="fontFamilyMedium">@font/montserrat_medium</item>
+        <item name="fontFamilyRegular">@font/montserrat_regular</item>
     </style>
 
 </resources>
