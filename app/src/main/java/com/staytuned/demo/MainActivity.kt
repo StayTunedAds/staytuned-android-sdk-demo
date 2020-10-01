@@ -28,18 +28,17 @@ class MainActivity : AppCompatActivity() {
         Glide.get(this).setMemoryCategory(MemoryCategory.LOW)
 
         vModel.getSections()
-        showDebugDBAddressLogToast(this)
 
         STAuth.getInstance()?.refresh(object : STHttpCallback<STAuthResponse> {
             override fun onSuccess(data: STAuthResponse) {
-                Toast.makeText(this@MainActivity, "Connected !", Toast.LENGTH_SHORT).show()
+                // Toast.makeText(this@MainActivity, "Connected !", Toast.LENGTH_SHORT).show()
                 println(Gson().toJson(data))
                 vModel.getLists()
             }
 
             override fun onError(t: Throwable) {
                 t.printStackTrace()
-                Toast.makeText(this@MainActivity, "Failed to connect", Toast.LENGTH_SHORT).show()
+                // Toast.makeText(this@MainActivity, "Failed to connect", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -55,21 +54,5 @@ class MainActivity : AppCompatActivity() {
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
-    }
-
-    private fun showDebugDBAddressLogToast(context: Context?) {
-        if (BuildConfig.DEBUG) {
-            try {
-                val debugDB = Class.forName("com.amitshekhar.DebugDB")
-                val getAddressLog: Method = debugDB.getMethod("getAddressLog")
-                val value: Any = getAddressLog.invoke(null)
-                Toast.makeText(
-                    context,
-                    value as String,
-                    Toast.LENGTH_LONG
-                ).show()
-            } catch (ignore: Exception) {
-            }
-        }
     }
 }
