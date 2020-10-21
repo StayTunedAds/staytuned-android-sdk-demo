@@ -15,4 +15,9 @@
     <string name="track_resume">Relancer la lecture</string>
     <string name="download">Téléchargements</string>
     <string name="no_downloads">Aucun contenu téléchargé</string>
+
+    <string name="fontFamilyBold">?attr/fontFamilyRegular</string>
+    <string name="fontFamilySemiBold">?attr/fontFamilyRegular</string>
+    <string name="fontFamilyMedium">?attr/fontFamilyRegular</string>
+    <string name="fontFamilyRegular">?attr/fontFamilyRegular</string>
 </resources>

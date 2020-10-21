@@ -13,6 +13,7 @@ import com.staytuned.sdk.http.STHttpCallback
 import com.staytuned.sdk.models.STContent
 import com.staytuned.sdk.models.STContentLight
 import com.staytuned.sdk.ui.STContentDetailFragment
+import com.staytuned.sdk.ui.adapters.STContentDetailTrackHolderStayTunedImpl
 import kotlinx.android.synthetic.main.activity_content.*
 
 class ContentActivity : AppCompatActivity() {
@@ -54,13 +55,13 @@ class ContentActivity : AppCompatActivity() {
 
                     val fragmentManager: FragmentManager = supportFragmentManager
                     val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-                    val fragment = STContentDetailFragment.withContent(data)
-                    fragment.onItemDetailClick = { content, track ->
-                        val intent = Intent(this@ContentActivity, TrackActivity::class.java)
-                        intent.putExtra("contentKey", content.key)
-                        intent.putExtra("trackKey", track.key)
-                        startActivity(intent)
-                    }
+                    val fragment =
+                        STContentDetailFragment.withContent(data, STContentDetailTrackHolderStayTunedImpl(this@ContentActivity) { content, track ->
+                            val intent = Intent(this@ContentActivity, TrackActivity::class.java)
+                            intent.putExtra("contentKey", content.key)
+                            intent.putExtra("trackKey", track.key)
+                            startActivity(intent)
+                        })
                     fragmentTransaction.add(
                         R.id.content_container,
                         fragment,

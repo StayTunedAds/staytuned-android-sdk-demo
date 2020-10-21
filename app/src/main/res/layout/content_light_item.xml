@@ -48,6 +48,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxWidth="150dp"
+        android:textColor="@color/stTextLight"
         android:fontFamily="@font/montserrat_regular"
         android:singleLine="true"
         android:textSize="13sp"

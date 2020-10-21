@@ -13,4 +13,12 @@
         <item name="fontFamilyRegular">@font/montserrat_regular</item>
     </style>
 
+
+    <style name="AppTheme2" parent="Theme.Transparent">
+        <item name="fontFamilyBold">@font/montserrat_bold</item>
+        <item name="fontFamilySemiBold">@font/montserrat_semibold</item>
+        <item name="fontFamilyMedium">@font/montserrat_medium</item>
+        <item name="fontFamilyRegular">@font/montserrat_regular</item>
+    </style>
+
 </resources>
