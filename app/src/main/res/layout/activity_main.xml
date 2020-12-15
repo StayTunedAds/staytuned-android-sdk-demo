@@ -1,45 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mainWrapper"
+    android:id="@+id/wrapper"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/fragNavHost"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <LinearLayout
+        android:id="@+id/mainWrapper"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/bottom_nav_graph" />
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".MainActivity">
 
-    <!-- <com.staytuned.sdk.ui.STFloatingPlayerButton
-        android:id="@+id/floatingSTPlayer"
-        android:layout_width="@dimen/st_size_64"
-        android:layout_height="@dimen/st_size_64"
-        tools:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_constraintRight_toRightOf="parent"
-        tools:layout_marginBottom="@dimen/st_size_16"
-        tools:layout_marginEnd="@dimen/st_size_16" /> -->
+        <RelativeLayout
+            android:id="@+id/chipParent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipChildren="false"
+            android:clipToPadding="false">
 
-    <com.staytuned.sdk.ui.STMinifiedPlayer
-        android:id="@+id/minifiedSTPlayer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            <fragment
+                android:id="@+id/fragNavHost"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/bottom_nav_graph" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:background="@android:color/white"
-        android:id="@+id/bottomNavView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:menu="@menu/main_bottom_nav_menu"/>
+        </RelativeLayout>
 
-</LinearLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            app:menu="@menu/main_bottom_nav_menu" />
+
+    </LinearLayout>
+</RelativeLayout>

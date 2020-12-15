@@ -8,8 +8,7 @@ import com.staytuned.sdk.models.options.STOptions
 class App : Application() {
 
     override fun onCreate() {
-        super.onCreate()
- 
+        super.onCreate() 
         Staytuned.init(applicationContext, BuildConfig.appId, BuildConfig.appToken, STOptions().apply {
             contentCachingOptions.enabledContentCaching = true
             contentCachingOptions.maxCachedContent = 5

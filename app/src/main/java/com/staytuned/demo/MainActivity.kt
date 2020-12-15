@@ -14,8 +14,11 @@ import com.bumptech.glide.MemoryCategory
 import com.google.gson.Gson
 import com.staytuned.demo.viewmodels.MainViewModel
 import com.staytuned.sdk.features.STAuth
+import com.staytuned.sdk.features.STFloatingChip
+import com.staytuned.sdk.features.STPlayer
 import com.staytuned.sdk.http.STHttpCallback
 import com.staytuned.sdk.models.STAuthResponse
+import com.staytuned.sdk.models.options.STFloatingChipConfiguration
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.reflect.Method
 
@@ -25,7 +28,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Glide.get(this).setMemoryCategory(MemoryCategory.LOW)
 
         vModel.getSections()
 
@@ -41,6 +43,8 @@ class MainActivity : AppCompatActivity() {
                 // Toast.makeText(this@MainActivity, "Failed to connect", Toast.LENGTH_SHORT).show()
             }
         })
+
+        STFloatingChip.getInstance()?.display(chipParent)
 
         val navController = findNavController(R.id.fragNavHost)
         bottomNavView.setupWithNavController(navController)
