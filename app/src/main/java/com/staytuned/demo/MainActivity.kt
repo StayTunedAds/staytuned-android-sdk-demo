@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        STFloatingChip.getInstance()?.display(chipParent)
+        // STFloatingChip.getInstance()?.display(chipParent)
 
         val navController = findNavController(R.id.fragNavHost)
         bottomNavView.setupWithNavController(navController)
