@@ -15,7 +15,7 @@ class App : Application() {
         STContents.getInstance()?.configuration?.contentCachingOptions?.apply {
             enabledContentCaching = true
             maxCachedContent = 5
-        } 
+        }
     }
 
     override fun attachBaseContext(base: Context?) {

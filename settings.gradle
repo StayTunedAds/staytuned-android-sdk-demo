@@ -1,3 +1,4 @@
 rootProject.name='StaytunedSDKDemo'
-include ':app', ':staytuned_sdk'
-project(":staytuned_sdk").projectDir = new File(settingsDir, '../staytuned-android-sdk/staytuned_sdk')
+include ':app'
+// ':staytuned_sdk'
+// project(":staytuned_sdk").projectDir = new File(settingsDir, '../staytuned-android-sdk/staytuned_sdk')
