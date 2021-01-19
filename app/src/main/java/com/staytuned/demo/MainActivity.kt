@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.observe
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         vModel.getSections()
 
-        STAuth.getInstance()?.refresh(object : STHttpCallback<STAuthResponse> {
+        STAuth.getInstance()?.connectAnonymous(object : STHttpCallback<STAuthResponse> {
             override fun onSuccess(data: STAuthResponse) {
                 // Toast.makeText(this@MainActivity, "Connected !", Toast.LENGTH_SHORT).show()
                 println(Gson().toJson(data))

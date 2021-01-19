@@ -33,7 +33,7 @@ class MainViewModel: ViewModel() {
         })
     }
 
-    fun getLists() {
+    fun getLists() {/*
         STLists.getInstance()?.getLists(object : STHttpCallback<List<STGenericList<*>>> {
             override fun onSuccess(data: List<STGenericList<*>>) {
                 val foundContentList = data.find { it.name == "MyContents" }
@@ -72,7 +72,7 @@ class MainViewModel: ViewModel() {
                 t.printStackTrace()
             }
 
-        })
+        }) */
     }
 
     private fun createContentList() {

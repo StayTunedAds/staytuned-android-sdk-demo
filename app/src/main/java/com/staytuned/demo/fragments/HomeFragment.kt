@@ -53,7 +53,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun getSection(section: STSection) {
         viewLifecycleOwner.lifecycleScope.launch {
             STSections.getInstance()?.getSection(section.id, object : STHttpCallback<STSection> {
