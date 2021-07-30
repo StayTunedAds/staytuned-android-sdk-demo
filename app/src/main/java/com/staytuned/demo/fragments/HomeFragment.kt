@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
@@ -17,26 +16,17 @@ import com.staytuned.sdk.features.STSections
 import com.staytuned.sdk.http.STHttpCallback
 import com.staytuned.sdk.models.STSection
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
 class HomeFragment : Fragment() {
 
-    val vModel: MainViewModel by activityViewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
+    ): View? = inflater.inflate(R.layout.fragment_home, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,7 +34,7 @@ class HomeFragment : Fragment() {
         mainRecycler.layoutManager = LinearLayoutManager(requireContext())
         mainRecycler.adapter = SectionAdapter(arrayListOf())
 
-        vModel.sections.observe(viewLifecycleOwner) {
+        mainViewModel.sections.observe(viewLifecycleOwner) {
             (mainRecycler.adapter as SectionAdapter).setSections(it)
 
             it.forEach { section ->
@@ -66,5 +56,4 @@ class HomeFragment : Fragment() {
             })
         }
     }
-
 }

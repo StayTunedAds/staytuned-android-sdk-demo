@@ -2,10 +2,10 @@ package com.staytuned.demo
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.staytuned.demo.viewmodels.MainViewModel
 import com.staytuned.sdk.features.STContents
@@ -18,64 +18,52 @@ import kotlinx.android.synthetic.main.activity_content.*
 
 class ContentActivity : AppCompatActivity() {
 
-    private val vModel: MainViewModel by viewModels()
-    private var contentLight: STContentLight? = null
-    var content: STContent? = null
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content)
 
-        vModel.getLists()
-        contentLight = intent.getParcelableExtra("contentLight")
+        mainViewModel.getLists()
 
-        /* vModel.myContentsList.observe(this) {
-            contentList = it
-            adapter.contentList = it
-        }
-        vModel.myTracksList.observe(this) {
-            trackList = it
-            adapter.trackList = it
-        }
-        STOffline.getInstance()?.getTracksObservableByContentKey(contentLight?.key ?: "")
-            ?.observe(this) {
-                adapter.offlineList = it
-            }
-        NetworkHelper.connectionLiveData.observe(this) {
-            adapter.isOffline = !it.isConnected
-        } */
-
-        if (contentLight != null) {
+        intent.getParcelableExtra<STContentLight>(EXTRA_CONTENT_LIGHT_KEY)?.let { stContentLight ->
             loader.visibility = View.VISIBLE
-            STContents.getInstance()?.getContent(contentLight!!.key, object : STHttpCallback<STContent> {
+            STContents.getInstance()?.getContent(stContentLight.key, object : STHttpCallback<STContent> {
                 override fun onSuccess(data: STContent) {
 
                     loader.visibility = View.GONE
-                    content = data
 
-                    val fragmentManager: FragmentManager = supportFragmentManager
-                    val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+                    val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
                     val fragment =
                         STContentDetailFragment.withContent(data, STContentDetailTrackHolderStayTunedImpl(this@ContentActivity) { content, track ->
                             val intent = Intent(this@ContentActivity, TrackActivity::class.java)
-                            intent.putExtra("contentKey", content.key)
-                            intent.putExtra("trackKey", track.key)
+                            intent.putExtra(EXTRA_CONTENT_KEY, content.key)
+                            intent.putExtra(EXTRA_TRACK_KEY, track.key)
                             startActivity(intent)
                         })
                     fragmentTransaction.add(
                         R.id.content_container,
                         fragment,
-                        "contentFragment"
+                        CONTENT_FRAGMENT_TAG
                     )
                     fragmentTransaction.commit()
                 }
 
                 override fun onError(t: Throwable) {
-                    t.printStackTrace()
+                    Log.e(LOG_TAG, "Error getting content with key ${stContentLight.key}")
                 }
             })
-        } else {
+        } ?: kotlin.run {
+            Log.e(LOG_TAG, "Content is null, finish activity")
             finish()
         }
     }
 }
+
+private const val LOG_TAG = "ContentActivity"
+
+private const val CONTENT_FRAGMENT_TAG = "contentFragment"
+
+const val EXTRA_CONTENT_KEY = "contentKey"
+const val EXTRA_TRACK_KEY = "trackKey"
+private const val EXTRA_CONTENT_LIGHT_KEY = "contentLight"

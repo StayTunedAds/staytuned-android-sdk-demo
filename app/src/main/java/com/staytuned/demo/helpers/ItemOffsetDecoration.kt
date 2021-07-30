@@ -24,6 +24,5 @@ class ItemOffsetDecoration(private val mItemOffset: Int, private val adapterType
 
             }
         }
-
     }
 }
