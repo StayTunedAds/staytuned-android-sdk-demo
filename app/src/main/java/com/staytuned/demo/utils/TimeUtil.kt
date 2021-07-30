@@ -11,7 +11,7 @@ class TimeUtil {
             val milliseconds = if (ms < 0) 0 else ms
 
             var finalTimerString = ""
-            var secondsString: String
+            val secondsString: String
 
             // Convert total duration into time
             val hours = (milliseconds / (1000 * 60 * 60)).toInt()
@@ -53,7 +53,6 @@ class TimeUtil {
 
             finalTimerString = "$finalTimerString $minutes mn"
 
-            // return timer string
             return finalTimerString
         }
     }
