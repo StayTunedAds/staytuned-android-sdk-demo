@@ -1,5 +1,6 @@
 package com.staytuned.demo.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,7 +29,7 @@ class MainViewModel: ViewModel() {
             }
 
             override fun onError(t: Throwable) {
-                t.printStackTrace()
+                Log.e(LOG_TAG, "Error getting sections : ", t)
             }
         })
     }
@@ -76,13 +77,13 @@ class MainViewModel: ViewModel() {
     }
 
     private fun createContentList() {
-        STLists.getInstance()?.create( "MyContents", STListType.Favorite, object : STHttpCallback<STContentList> {
+        STLists.getInstance()?.create( CONTENT_NAME_ST_LIST, STListType.Favorite, object : STHttpCallback<STContentList> {
             override fun onSuccess(data: STContentList) {
                 myContentsList.postValue(data)
             }
 
             override fun onError(t: Throwable) {
-                t.printStackTrace()
+                Log.e(LOG_TAG, "Error creating content list $CONTENT_NAME_ST_LIST : ", t)
             }
         })
     }
@@ -94,8 +95,13 @@ class MainViewModel: ViewModel() {
             }
 
             override fun onError(t: Throwable) {
-                t.printStackTrace()
+                Log.e(LOG_TAG, "Error creating content list $TRACK_NAME_ST_LIST : ", t)
             }
         })
     }
 }
+
+private const val LOG_TAG = "MainViewModel"
+
+private const val CONTENT_NAME_ST_LIST = "MyContents"
+private const val TRACK_NAME_ST_LIST = "MyTracks"
