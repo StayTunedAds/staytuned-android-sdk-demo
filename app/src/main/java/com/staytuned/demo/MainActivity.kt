@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 
         initNavigation()
         refreshData()
-
     }
 
     private fun initNavigation() {
@@ -34,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = setOf(
                 R.id.homeFragment,
-                R.id.contentListFragment,
                 R.id.trackListFragment
             )
         )
@@ -46,8 +44,8 @@ class MainActivity : AppCompatActivity() {
 
         STAuth.getInstance()?.connectAnonymous(object : STHttpCallback<STAuthResponse> {
             override fun onSuccess(data: STAuthResponse) {
+                Toast.makeText(this@MainActivity, "Connexion réussie !", Toast.LENGTH_SHORT).show()
                 Log.d(LOG_TAG, "Connection success ! Result data : ${Gson().toJson(data)} ")
-                mainViewModel.getLists()
             }
 
             override fun onError(t: Throwable) {
