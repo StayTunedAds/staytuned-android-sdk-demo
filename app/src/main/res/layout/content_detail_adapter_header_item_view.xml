@@ -16,7 +16,8 @@
         android:scaleType="centerCrop"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@null" />
 
     <TextView
         android:id="@+id/audio_book_detail_title"
@@ -142,7 +143,6 @@
         android:layout_marginStart="@dimen/st_size_16"
         android:layout_marginTop="@dimen/st_size_24"
         android:text="Chapitres"
-
         android:textSize="@dimen/st_text_15"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/audio_book_detail_separator" />

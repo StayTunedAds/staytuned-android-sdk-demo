@@ -13,9 +13,10 @@ This repository is a demo application for the Staytuned Android SDK
 
 ## Run
 
-Run the project in Android Studio
+You have nothing to do to have functional demo of the Staytuned Android SDK.
+If you want, you can change the setup with your own credentials in `App.kt`
 
-You also can change the setup with your own credentials in `App.kt`
+In any cases, you just have to run the app and you'll see the Staytuned Android SDK in action
 
 ## Documentation
 
@@ -23,8 +24,8 @@ You also can change the setup with your own credentials in `App.kt`
 
 ## Licence
 
-Copyright (c) 2020 Staytuned
+Copyright (c) 2021 Staytuned
 
 Any person obtaining a copy of this software and associated documentation
 files (the "Software"), agrees not to copy or distribute this software without
-explicit permision from Staytuned
+explicit permission from Staytuned

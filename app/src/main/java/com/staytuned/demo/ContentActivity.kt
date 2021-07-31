@@ -18,13 +18,9 @@ import kotlinx.android.synthetic.main.activity_content.*
 
 class ContentActivity : AppCompatActivity() {
 
-    private val mainViewModel: MainViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content)
-
-        mainViewModel.getLists()
 
         intent.getParcelableExtra<STContentLight>(EXTRA_CONTENT_LIGHT_KEY)?.let { stContentLight ->
             loader.visibility = View.VISIBLE
@@ -66,4 +62,4 @@ private const val CONTENT_FRAGMENT_TAG = "contentFragment"
 
 const val EXTRA_CONTENT_KEY = "contentKey"
 const val EXTRA_TRACK_KEY = "trackKey"
-private const val EXTRA_CONTENT_LIGHT_KEY = "contentLight"
+const val EXTRA_CONTENT_LIGHT_KEY = "contentLight"
