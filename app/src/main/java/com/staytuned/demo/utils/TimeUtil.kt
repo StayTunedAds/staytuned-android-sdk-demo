@@ -40,12 +40,11 @@ class TimeUtil {
             val milliseconds = if (ms < 0) 0 else ms
 
             var finalTimerString = ""
-            var secondsString: String
 
             // Convert total duration into time
             val hours = (milliseconds / (1000 * 60 * 60)).toInt()
             val minutes = (milliseconds % (1000 * 60 * 60)).toInt() / (1000 * 60)
-            val seconds = (milliseconds % (1000 * 60 * 60) % (1000 * 60) / 1000).toInt()
+//            val seconds = (milliseconds % (1000 * 60 * 60) % (1000 * 60) / 1000).toInt()
             // Add hours if there
             if (hours > 0) {
                 finalTimerString = "$hours h"

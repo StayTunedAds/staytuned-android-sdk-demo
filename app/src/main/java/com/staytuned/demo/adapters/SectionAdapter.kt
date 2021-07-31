@@ -16,55 +16,50 @@ class SectionAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        var sectionsRecyclerView: RecyclerView = v.section_recyclerview
-        var homeCategoryTitle: TextView = v.section_title
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var sectionsRecyclerView: RecyclerView = view.section_recyclerview
+        var homeCategoryTitle: TextView = view.section_title
+
+        fun bind(section: STSection) {
+            (sectionsRecyclerView.adapter as? ContentLightAdapter)?.setContents(section.linkedContents ?: listOf())
+            homeCategoryTitle.text = section.name
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val v = inflater.inflate(R.layout.section_item_view, parent, false)
+        val view = inflater.inflate(R.layout.section_item_view, parent, false)
 
-        v.section_recyclerview.layoutManager = LinearLayoutManager(parent.context, LinearLayoutManager.HORIZONTAL, false)
-        v.section_recyclerview.adapter = ContentLightAdapter(listOf())
+        view.section_recyclerview.layoutManager = LinearLayoutManager(parent.context, LinearLayoutManager.HORIZONTAL, false)
+        view.section_recyclerview.adapter = ContentLightAdapter(listOf())
 
-        return ViewHolder(v)
+        return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return sectionList.size
-    }
+    override fun getItemCount(): Int = sectionList.size
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val currentCategory = sectionList[position]
-        bindListItem(holder as ViewHolder, currentCategory, position)
+        val section = sectionList[position]
+        (holder as ViewHolder).bind(section)
     }
 
     fun setSections(sections: List<STSection>) {
         val result = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
-            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                return sectionList[oldItemPosition].id == sections[newItemPosition].id
-            }
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+                sectionList[oldItemPosition].id == sections[newItemPosition].id
 
-            override fun getOldListSize(): Int {
-                return sectionList.size
-            }
+            override fun getOldListSize(): Int = sectionList.size
 
-            override fun getNewListSize(): Int {
-                return sections.size
-            }
+            override fun getNewListSize(): Int = sections.size
 
-            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                return sectionList[oldItemPosition].linkedContents?.size == sections[newItemPosition].linkedContents?.size
-            }
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+                sectionList[oldItemPosition].linkedContents?.size == sections[newItemPosition].linkedContents?.size
 
-        }, true);
+        }, true)
         result.dispatchUpdatesTo(this)
 
-        val cloneList = ArrayList<STSection>()
-        cloneList.addAll(sections)
-        sectionList = cloneList
+        sectionList = ArrayList(sections)
     }
 
     fun updateSection(section: STSection) {
@@ -75,18 +70,4 @@ class SectionAdapter(
             notifyItemChanged(foundSectionIndex)
         }
     }
-
-    private fun bindListItem(
-        holder: ViewHolder,
-        section: STSection,
-        position: Int
-    ) {
-
-        val adapter = holder.sectionsRecyclerView.adapter as ContentLightAdapter
-        adapter.setContents(section.linkedContents ?: listOf())
-        holder.homeCategoryTitle.text = section.name
-
-        holder.itemView.setOnClickListener {  }
-    }
-
 }
