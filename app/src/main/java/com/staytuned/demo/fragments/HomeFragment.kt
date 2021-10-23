@@ -54,7 +54,7 @@ class HomeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             STSections.getInstance()?.getSection(section.id, object : STHttpCallback<STSection> {
                 override fun onSuccess(data: STSection) {
-                    (mainRecycler.adapter as SectionAdapter).updateSection(data)
+                    (mainRecycler?.adapter as? SectionAdapter)?.updateSection(data)
                 }
 
                 override fun onError(t: Throwable) {
