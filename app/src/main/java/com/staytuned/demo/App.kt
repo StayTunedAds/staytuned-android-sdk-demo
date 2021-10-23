@@ -15,7 +15,9 @@ class App : Application() {
             this,
             BuildConfig.appId,
             BuildConfig.appToken,
-            STOptions()
+            STOptions().apply {
+                isPlayerNotificationDismissible = true
+            }
         )
 
         //Set content caching configuration
