@@ -46,14 +46,12 @@ android {
     }
     buildTypes {
         debug {
-            // buildConfigField "String", "appId", "\"dfd023d8-1169-4070-a207-783b11c22431\""
-            // buildConfigField "String", "appToken", "\"37f4fc54.0efab1f7-17c3-4200-86a3-e508f388415a\""
-            buildConfigField "String", "appId", "\"de03f2b8-ef81-428e-a20c-fb5becf32cad\""
-            buildConfigField "String", "appToken", "\"dda710aa.74ff4f0a-cf6b-4db1-9345-e88862ca7ce9\""
+            buildConfigField "String", "appId", "\"3d13a14f-034b-4438-9c5a-4c081e25317b\""
+            buildConfigField "String", "appToken", "\"1149cd13.998c3063-738d-433c-8556-80decd2f86e5\""
         }
         release {
-            buildConfigField "String", "appId", "\"de03f2b8-ef81-428e-a20c-fb5becf32cad\""
-            buildConfigField "String", "appToken", "\"dda710aa.74ff4f0a-cf6b-4db1-9345-e88862ca7ce9\""
+            buildConfigField "String", "appId", "\"3d13a14f-034b-4438-9c5a-4c081e25317b\""
+            buildConfigField "String", "appToken", "\"1149cd13.998c3063-738d-433c-8556-80decd2f86e5\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
